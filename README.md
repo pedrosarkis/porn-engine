@@ -1,4 +1,4 @@
-#### Currently Supported searches
+#### Currently supported searches
 
 | Site name                       | Videos |
 |:--------------------------------|:------:|
