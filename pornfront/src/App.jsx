@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Search } from 'lucide-react';
+import { Search, ChevronLeft, ChevronRight } from 'lucide-react';
 import { fetchVideos } from './service/videoApi';
 import getRandomPornActress from './consts/RANDOMPORNS';
 
@@ -23,15 +23,16 @@ const SkeletonVideoCard = () => (
   <div className="w-full mb-4 animate-pulse">
     <div className="relative w-full pb-[56.25%] bg-gray-200 rounded-md"></div>
     <h3 className="font-bold text-sm mt-2 line-clamp-2 bg-gray-200 text-gray-200">Generic title only for fill the size of the container </h3>
-    
     <div className="h-3 bg-gray-200 mt-1 rounded w-3/4"></div>
   </div>
 );
 
 const VideoPlatform = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [videos, setVideos] = useState([]);
+  const [allVideos, setAllVideos] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
+  const videosPerPage = 20;
 
   const handleSearchValue = (e) => {
     setSearchTerm(e.target.value);
@@ -40,7 +41,8 @@ const VideoPlatform = () => {
   const handleSearch = async () => {
     setLoading(true);
     const data = await fetchVideos(searchTerm);
-    setVideos(data);
+    setAllVideos(data);
+    setCurrentPage(1);
     setLoading(false);
   };
 
@@ -48,11 +50,19 @@ const VideoPlatform = () => {
     const fetchInitialVideos = async () => {
       setLoading(true);
       const data = await fetchVideos(getRandomPornActress());
-      setVideos(data);
+      setAllVideos(data);
       setLoading(false);
     };
     fetchInitialVideos();
   }, []);
+
+  const indexOfLastVideo = currentPage * videosPerPage;
+  const indexOfFirstVideo = indexOfLastVideo - videosPerPage;
+  const currentVideos = allVideos.slice(indexOfFirstVideo, indexOfLastVideo);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  const totalPages = Math.ceil(allVideos.length / videosPerPage);
 
   return (
     <div className="container mx-auto px-4">
@@ -79,11 +89,33 @@ const VideoPlatform = () => {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
         {loading
-          ? Array.from({ length: 10 }).map((_, index) => (
+          ? Array.from({ length: videosPerPage }).map((_, index) => (
               <SkeletonVideoCard key={index} />
             ))
-          : videos.map((video) => <VideoCard key={video.id} video={video} />)}
+          : currentVideos.map((video) => <VideoCard key={video.id} video={video} />)}
       </div>
+
+      {!loading && (
+        <div className="flex justify-center items-center mt-8">
+          <button
+            onClick={() => paginate(currentPage - 1)}
+            disabled={currentPage === 1}
+            className="mr-2 px-3 py-1 bg-gray-200 rounded-md disabled:opacity-50"
+          >
+            <ChevronLeft size={20} />
+          </button>
+          <span className="mx-2">
+            Página {currentPage} de {totalPages}
+          </span>
+          <button
+            onClick={() => paginate(currentPage + 1)}
+            disabled={currentPage === totalPages}
+            className="ml-2 px-3 py-1 bg-gray-200 rounded-md disabled:opacity-50"
+          >
+            <ChevronRight size={20} />
+          </button>
+        </div>
+      )}
     </div>
   );
 };
