@@ -13,7 +13,6 @@ class RedtubeService extends SearchService {
         const videoList: Video[] = []
         
         const queryFormatted: string = query.split('-').join('+')
-        console.log(queryFormatted, 'redtube')
         const url: string = `${this.baseURL}/?search=${queryFormatted}`
      
         const data: string = await this.fetchToText(url)

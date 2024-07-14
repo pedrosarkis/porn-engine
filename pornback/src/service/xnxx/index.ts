@@ -11,7 +11,6 @@ class XnxxService extends SearchService{
         const videoList: Video[] = []
         
         const queryFormatted = query.split(' ').join('+')
-        console.log(queryFormatted, 'xnxx')
         const url = `${this.baseURL}/search/${queryFormatted}`
      
         const data = await this.fetchToText(url)

@@ -8,7 +8,6 @@ class TxxxService extends SearchService{
 
     async search(query: string) {
         const queryFormatted = query.split('-').join('%20')
-        console.log(queryFormatted, 'txxx')
         const t0 = performance.now()
         const { videos } = await (await fetch(`${this.baseURL}/api/videos2.php?params=259200/str/relevance/60/search..1.all..&s=` + queryFormatted)).json()
       

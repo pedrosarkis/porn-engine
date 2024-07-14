@@ -12,7 +12,6 @@ class XvideosService extends SearchService {
         const videoList: Video[] = []
         
         const queryFormatted: string = query.split('-').join('+')
-        console.log(queryFormatted, 'xvideos')
         const url: string = `${this.baseURL}/?k=${queryFormatted}&p=${page}`
      
         const data: string = await this.fetchToText(url)
