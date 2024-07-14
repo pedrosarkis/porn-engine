@@ -65,6 +65,7 @@ const VideoPlatform = () => {
             placeholder="Pesquisar vídeos..."
             value={searchTerm}
             onChange={handleSearchValue}
+            onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
             className="w-full px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <button
