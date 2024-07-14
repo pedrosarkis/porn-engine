@@ -22,14 +22,14 @@ const deduplicationStrategy = new UrlBasedDeduplicationStrategy()
 
 const aggregatedSearchService = new AggregatedSearchService(
     [
-        redtubeService,
-        epornService,
         xvideosService,
+        epornService,
         pornhubService,
         yeptubeService,
         xhamsterService,
         txxxService,
-        spankBangService
+        spankBangService,
+        redtubeService,
     ],
     deduplicationStrategy
 )
