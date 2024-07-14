@@ -6,12 +6,14 @@ import getRandomPornActress from './consts/RANDOMPORNS';
 import LanguageSelector from './components/LanguageSelector';
 import VideoCard from './components/VideoCard';
 import SkeletonVideoCard from './components/SkeletonVideoCard';
+import FilterComponent from './components/Filters';
 
 const VideoPlatform = () => {
   const { t, i18n } = useTranslation();
   const [searchTerm, setSearchTerm] = useState('');
   const [lastSearchedTerm, setLastSearchedTerm] = useState('');
   const [allVideos, setAllVideos] = useState([]);
+  const [filteredVideos, setFilteredVideos] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [sortBy, setSortBy] = useState('popularity');
@@ -20,28 +22,6 @@ const VideoPlatform = () => {
     duration: 'all'
   });
   const videosPerPage = 20;
-
-  const dateAddedOptions = [
-    'all',
-    'past24hours',
-    'past2days',
-    'pastWeek',
-    'pastMonth',
-    'past3months',
-    'pastYear'
-  ];
-
-  const durationOptions = [
-    'all',
-    '1plusMinutes',
-    '5plusMinutes',
-    '10plusMinutes',
-    '20plusMinutes',
-    '30plusMinutes',
-    '60plusMinutes',
-    '0to10minutes',
-    '0to20minutes'
-  ];
 
   useEffect(() => {
     const detectLanguage = async () => {
@@ -72,6 +52,7 @@ const VideoPlatform = () => {
       const initialTerm = getRandomPornActress();
       const data = await fetchVideos(initialTerm);
       setAllVideos(data);
+      setFilteredVideos(data);
       setLoading(false);
       setLastSearchedTerm(initialTerm);
     };
@@ -86,6 +67,7 @@ const VideoPlatform = () => {
     setLoading(true);
     const data = await fetchVideos(searchTerm);
     setAllVideos(data);
+    setFilteredVideos(data);
     setCurrentPage(1);
     setLoading(false);
     setLastSearchedTerm(searchTerm);
@@ -93,11 +75,11 @@ const VideoPlatform = () => {
 
   const indexOfLastVideo = currentPage * videosPerPage;
   const indexOfFirstVideo = indexOfLastVideo - videosPerPage;
-  const currentVideos = allVideos.slice(indexOfFirstVideo, indexOfLastVideo);
+  const currentVideos = filteredVideos.slice(indexOfFirstVideo, indexOfLastVideo);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  const totalPages = Math.ceil(allVideos.length / videosPerPage);
+  const totalPages = Math.ceil(filteredVideos.length / videosPerPage);
 
   const handleChangeLanguage = (langCode) => {
     i18n.changeLanguage(langCode);
@@ -105,7 +87,7 @@ const VideoPlatform = () => {
 
   const handleSortChange = (newSortBy) => {
     setSortBy(newSortBy);
-    const sortedVideos = [...allVideos].sort((a, b) => {
+    const sortedVideos = [...filteredVideos].sort((a, b) => {
       if (newSortBy === 'date') {
         return new Date(b.date) - new Date(a.date);
       } else if (newSortBy === 'duration') {
@@ -115,25 +97,33 @@ const VideoPlatform = () => {
       }
       return b.views - a.views;
     });
-    setAllVideos(sortedVideos);
+    setFilteredVideos(sortedVideos);
   };
 
   const handleFilterChange = (filterType, value) => {
-    setFilterBy(prev => ({ ...prev, [filterType]: value }));
+    const newFilterBy = { ...filterBy, [filterType]: value };
+    setFilterBy(newFilterBy);
+    
     const filteredVideos = allVideos.filter(video => {
-      if (filterBy.dateAdded !== 'all' && !matchesDateAdded(video.dateAdded, filterBy.dateAdded)) return false;
-      if (filterBy.duration !== 'all' && !matchesDuration(video.duration, filterBy.duration)) return false;
+      if (newFilterBy.dateAdded !== 'all' && !matchesDateAdded(video.dateAdded, newFilterBy.dateAdded)) return false;
+      if (newFilterBy.duration !== 'all' && !matchesDuration(video.duration, newFilterBy.duration)) return false;
       return true;
     });
-    setAllVideos(filteredVideos);
+    
+    setFilteredVideos(filteredVideos);
+    setCurrentPage(1);
   };
 
   const matchesDateAdded = (videoDate, filter) => {
+    // Implement the date filtering logic here
     return true;
   };
 
   const matchesDuration = (videoDuration, filter) => {
-    return true;
+    const minutesFilter = parseInt(filter.split('plusMinutes')[0]) * 60;
+    const [minutes, seconds] = videoDuration.split(':').map(Number);
+    const videoDurationInSeconds = minutes * 60 + seconds;
+    return videoDurationInSeconds >= minutesFilter && videoDurationInSeconds <= minutesFilter + 60;
   };
 
   return (
@@ -163,44 +153,14 @@ const VideoPlatform = () => {
       {lastSearchedTerm && !loading && (
         <div className="mb-6">
           <h2 className="text-xl font-semibold mb-2">
-            {lastSearchedTerm} ({allVideos.length} {t('results')})
+            {lastSearchedTerm} ({filteredVideos.length} {t('results')})
           </h2>
-          <div className="flex flex-wrap gap-4">
-            <div className="flex items-center">
-              <span className="font-medium mr-2">{t('sortBy')}:</span>
-              <select
-                value={sortBy}
-                onChange={(e) => handleSortChange(e.target.value)}
-                className="border rounded px-2 py-1"
-              >
-                <option value="popularity">{t('popularity')}</option>
-                <option value="date">{t('date')}</option>
-                <option value="duration">{t('duration')}</option>
-                <option value="rating">{t('rating')}</option>
-              </select>
-            </div>
-            <div className="flex items-center flex-wrap gap-2">
-              <span className="font-medium mr-2">{t('filterBy')}:</span>
-              <select
-                value={filterBy.dateAdded}
-                onChange={(e) => handleFilterChange('dateAdded', e.target.value)}
-                className="border rounded px-2 py-1"
-              >
-                {dateAddedOptions.map(option => (
-                  <option key={option} value={option}>{t(`dateAdded.${option}`)}</option>
-                ))}
-              </select>
-              <select
-                value={filterBy.duration}
-                onChange={(e) => handleFilterChange('duration', e.target.value)}
-                className="border rounded px-2 py-1"
-              >
-                {durationOptions.map(option => (
-                  <option key={option} value={option}>{t(`durationFilter.${option}`)}</option>
-                ))}
-              </select>
-            </div>
-          </div>
+          <FilterComponent
+            sortBy={sortBy}
+            filterBy={filterBy}
+            onSortChange={handleSortChange}
+            onFilterChange={handleFilterChange}
+          />
         </div>
       )}
 
