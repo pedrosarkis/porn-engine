@@ -26,9 +26,9 @@ class EpornService extends SearchService{
             videoList.push(new Video(title, this.baseURL + url, tags, description, duration, thumbnail))
         })
         
-        if (page <= pagesNumber) {
-            await this.search(query, page + 1, pagesNumber, videoList)
-        }
+        // if (page <= pagesNumber) {
+        //     await this.search(query, page + 1, pagesNumber, videoList)
+        // }
         return videoList
     }
 }
