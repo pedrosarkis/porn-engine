@@ -1,6 +1,7 @@
 import Video from '../../entities/Video'
 import cheerio from 'cheerio'
 import SearchService from '../searchService'
+import fs from 'fs'
 class EpornService extends SearchService{
    
     constructor() {
@@ -9,8 +10,9 @@ class EpornService extends SearchService{
     async search(query: string, page: number = 1, pages: number = 1, videoList: Video[] = []) {
         const queryFormatted = query.split(' ').join('-')
         const pageString = page > 1 ? page : ''
-        const data = await this.fetchToText(`${this.baseURL}/search/${queryFormatted}/${pageString}`)
+        const data = await this.fetchToText(`${this.baseURL}/search/${queryFormatted}`)
         const $ = cheerio.load(data)
+        fs.writeFileSync('eporn.html', data)
        
         
         const videos = $('#vidresults .mb')
@@ -19,7 +21,8 @@ class EpornService extends SearchService{
         videos.each((index, element) => {
             const title = $(element).find('.mbtit a').text()
             const url = $(element).find('.mbtit a').attr('href') || ''
-            const thumbnail = $(element).find('.mbimg img').attr('src') || ''
+            const thumbnail = $(element).find('.mbimg img').attr('data-src') || ''
+            console.log('thumbnail', thumbnail)
             const tags = $(element).find('.mbunder .mbstats').text().split(' ')
             const description = $(element).find('.mbunder .mbstats').text()
             const duration =  $(element).find('.mbtim').text()
