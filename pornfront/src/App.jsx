@@ -43,7 +43,7 @@ const VideoPlatform = () => {
   
   return (
     <div className="container mx-auto px-4">
-      <h1 className="text-3xl font-bold mb-6 text-center">Plataforma de Vídeos</h1>
+      <h1 className="text-3xl font-bold mb-6 text-center">Porn Search Engine</h1>
       
       <div className="mb-6 flex justify-center">
         <div className="relative w-full max-w-xl">
