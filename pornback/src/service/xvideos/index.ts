@@ -7,6 +7,17 @@ class XvideosService extends SearchService {
     constructor() {
         super('https://www.xvideos.com')
     }
+
+    formatDuration(duration: string): string {
+        let finalDuration: string = ''
+        if(duration.includes('min')) {
+             finalDuration = duration.split('min')[0].trim() + ':00'
+        } else {
+             finalDuration = '00:' + duration.split('sec')[0].trim()
+        }
+
+        return finalDuration 
+    }
     
     async search(query: string, page: number = 0) {
         const videoList: Video[] = []
@@ -22,7 +33,7 @@ class XvideosService extends SearchService {
             const title: string = $(element).find('.title').text()
             const url: string = this.baseURL + $(element).find('.title a').attr('href')
             const thumbnail: string = $(element).find('.thumb img').attr('data-src') || ''
-            const duration: string = $(element).find('.duration').text()
+            const duration: string = this.formatDuration($(element).find('.duration').text()) 
             const tags: string[] = []
             const description: string = ''
             const video: Video = new Video(title, url, tags, description, duration, thumbnail)
