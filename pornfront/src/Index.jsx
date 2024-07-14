@@ -7,6 +7,7 @@ import LanguageSelector from './components/LanguageSelector';
 import VideoCard from './components/VideoCard';
 import SkeletonVideoCard from './components/SkeletonVideoCard';
 import FilterComponent from './components/Filters';
+import moment from 'moment';
 
 const VideoPlatform = () => {
   const { t, i18n } = useTranslation();
@@ -91,7 +92,7 @@ const VideoPlatform = () => {
       if (newSortBy === 'date') {
         return new Date(b.date) - new Date(a.date);
       } else if (newSortBy === 'duration') {
-        return b.duration - a.duration;
+        return moment.duration(b.duration).asSeconds() - moment.duration(a.duration).asSeconds();
       } else if (newSortBy === 'rating') {
         return b.rating - a.rating;
       }
