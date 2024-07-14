@@ -15,3 +15,5 @@
 Running example on : https://porn-engine.onrender.com/
 
 The hosting is in free mode, so the server sleeps when idle, the first video search tends to have a big delay.
+
+The search has a depth 1, meaning only search for the first page in every service.
