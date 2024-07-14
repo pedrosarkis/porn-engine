@@ -21,8 +21,9 @@ class EpornService extends SearchService{
         videos.each((index, element) => {
             const title = $(element).find('.mbtit a').text()
             const url = $(element).find('.mbtit a').attr('href') || ''
-            const thumbnail = $(element).find('.mbimg img').attr('data-src') || ''
-            console.log('thumbnail', thumbnail)
+            const image = $(element).find('.mbimg img')
+            // if image has a class lazyimg search for data-src, else search for src
+            const thumbnail = image.attr('data-src') || image.attr('src') || ''
             const tags = $(element).find('.mbunder .mbstats').text().split(' ')
             const description = $(element).find('.mbunder .mbstats').text()
             const duration =  $(element).find('.mbtim').text()
