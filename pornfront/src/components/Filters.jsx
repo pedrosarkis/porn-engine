@@ -16,7 +16,6 @@ const FilterComponent = ({ sortBy, filterBy, onSortChange, onFilterChange }) => 
 
   const durationOptions = [
     'all',
-    '1plusMinutes',
     '5plusMinutes',
     '10plusMinutes',
     '20plusMinutes',

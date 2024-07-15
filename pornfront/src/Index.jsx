@@ -124,7 +124,7 @@ const VideoPlatform = () => {
     const minutesFilter = parseInt(filter.split('plusMinutes')[0]) * 60;
     const [minutes, seconds] = videoDuration.split(':').map(Number);
     const videoDurationInSeconds = minutes * 60 + seconds;
-    return videoDurationInSeconds >= minutesFilter && videoDurationInSeconds <= minutesFilter + 60;
+    return videoDurationInSeconds >= minutesFilter;
   };
 
   return (
