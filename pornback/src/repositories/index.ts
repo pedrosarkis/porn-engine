@@ -30,8 +30,7 @@ const aggregatedSearchService = new AggregatedSearchService(
         txxxService,
         spankBangService,
         redtubeService,
-    ],
-    deduplicationStrategy
+    ]
 )
 
 export default aggregatedSearchService
