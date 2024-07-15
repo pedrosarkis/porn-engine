@@ -2,7 +2,7 @@ import cheerio from 'cheerio'
 import Video from '../../entities/Video'
 import SearchService from '../searchService'
 import fs from 'fs'
-import e from 'express'
+import { Performance } from 'perf_hooks'
 
 class RedtubeService extends SearchService {
     constructor() {
@@ -10,6 +10,7 @@ class RedtubeService extends SearchService {
     }
     
     async search(query: string, page: number = 0) {
+        const time = performance.now()
         const videoList: Video[] = []
         
         const queryFormatted: string = query.split('-').join('+')
@@ -34,6 +35,8 @@ class RedtubeService extends SearchService {
             const video: Video = new Video(title, url, tags, description, duration, thumbnail)
             videoList.push(video)
         })
+        const time2 = performance.now()
+        console.log(`RedtubeService.search took ${time2 - time} milliseconds"`)
 
         return videoList
 

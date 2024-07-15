@@ -2,6 +2,7 @@ import SearchService from "../searchService"
 import cheerio from 'cheerio'
 import fs from 'fs'
 import Video from "../../entities/Video"
+import { Performance } from 'perf_hooks'
 
 class YepTubeService extends SearchService {
   constructor() {
@@ -9,6 +10,7 @@ class YepTubeService extends SearchService {
   }
 
   async search(query: string) {
+	const time = performance.now()
 	const videoList: Video[] = []
 	const queryFormatted = query.split(' ').join('+')
 	
@@ -25,7 +27,9 @@ class YepTubeService extends SearchService {
 		const duration = $(element).find('span.time').text() || ''
 		videoList.push(new Video(title, url, [], '', duration, thumbnail))
 
-	})	
+	})
+	const time2 = performance.now()
+	console.log(`YeptubeService.search took ${time2 - time} milliseconds`)
 	return videoList
 }
 }

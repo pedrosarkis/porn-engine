@@ -2,13 +2,14 @@ import cheerio from 'cheerio'
 import Video from '../../entities/Video'
 import SearchService from '../searchService'
 import fs from 'fs'
-
+import { Performance } from 'perf_hooks'
 class PornhubService extends SearchService {
     constructor() {
         super('https://www.pornhub.com')
     }
 
     async search(query: string, page: number = 0) {
+        const time = performance.now()
         const videoList: Video[] = []
         const queryFormatted = query.split(' ').join('+')
         let url = `${this.baseURL}/video/search?search=${queryFormatted}`
@@ -51,7 +52,9 @@ class PornhubService extends SearchService {
             const description = ''
             const video = new Video(title, url, tags, description, duration, thumbnail)
             videoList.push(video)
-        })      
+        })
+        const time2 = performance.now()
+        console.log(`PornhubService.search took ${time2 - time} milliseconds`)
         return videoList
     }
 }

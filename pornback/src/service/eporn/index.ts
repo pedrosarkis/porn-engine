@@ -2,12 +2,14 @@ import Video from '../../entities/Video'
 import cheerio from 'cheerio'
 import SearchService from '../searchService'
 import fs from 'fs'
+import { Performance } from 'perf_hooks'
 class EpornService extends SearchService{
    
     constructor() {
         super('https://www.eporner.com')
     }
     async search(query: string, page: number = 1, pages: number = 1, videoList: Video[] = []) {
+        const time = performance.now()
         const queryFormatted = query.split(' ').join('-')
         const pageString = page > 1 ? page : ''
         const data = await this.fetchToText(`${this.baseURL}/search/${queryFormatted}`)
@@ -33,6 +35,8 @@ class EpornService extends SearchService{
         // if (page <= pagesNumber) {
         //     await this.search(query, page + 1, pagesNumber, videoList)
         // }
+        const time2 = performance.now()
+        console.log(`EpornService.search took ${time2 - time} milliseconds`)
         return videoList
     }
 }

@@ -2,6 +2,7 @@ import Video from '../../entities/Video'
 import SearchService from '../searchService'
 import cheerio from 'cheerio'
 import fs from 'fs'
+import { Performance } from 'perf_hooks'
 
 class SpankBangService extends SearchService {
     constructor() {
@@ -9,6 +10,7 @@ class SpankBangService extends SearchService {
     }
 
     async search(query: string) {
+        const time1 = performance.now()
         const queryFormatted = query.split('-').join('%20')
       
         const html = await this.fetchToText(`${this.baseURL}/s/${queryFormatted}/`)
@@ -24,7 +26,8 @@ class SpankBangService extends SearchService {
             return new Video(title, url, tags, description, duration, thumbnail)
         }).get()
       
-
+        const time2 = performance.now()
+        console.log(`SpankBangService.search took ${time2 - time1} milliseconds`)
         return videolist
     }
 }

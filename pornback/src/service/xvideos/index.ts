@@ -2,6 +2,7 @@ import cheerio from 'cheerio'
 import Video from '../../entities/Video'
 import SearchService from '../searchService'
 import fs from 'fs'
+import { Performance } from 'perf_hooks'
 
 class XvideosService extends SearchService {
     constructor() {
@@ -20,6 +21,7 @@ class XvideosService extends SearchService {
     }
     
     async search(query: string, page: number = 0) {
+        const time1 = performance.now()
         const videoList: Video[] = []
         
         const queryFormatted: string = query.split('-').join('+')
@@ -40,6 +42,8 @@ class XvideosService extends SearchService {
             videoList.push(video)
         })
 
+        const time2 = performance.now()
+        console.log(`XvideosService.search took ${time2 - time1} milliseconds"`)
         return videoList
 
     }

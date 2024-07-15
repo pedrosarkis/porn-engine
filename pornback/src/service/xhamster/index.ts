@@ -2,12 +2,14 @@ import cheerio from 'cheerio'
 import SearchService from '../searchService'
 import Video from '../../entities/Video'
 import fs from 'fs'
+import { Performance } from 'perf_hooks'
 class XhamsterService extends SearchService {
     constructor() {
         super('https://xhamster.com')
     }
 
     async search(query: string) {
+        const time = performance.now()
         const videoList: Video[] = []
         const queryFormatted = query.split('-').join('+')
         const url = `${this.baseURL}/search/${queryFormatted}`
@@ -27,6 +29,8 @@ class XhamsterService extends SearchService {
             videoList.push(video)
 
         })
+        const time2 = performance.now()
+        console.log(`XhamsterService.search took ${time2 - time} milliseconds`)
         return videoList
 
     }
