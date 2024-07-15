@@ -1,4 +1,4 @@
-import SearchRepository from "../repositories/searchRepository"
+import SearchRepository from "../../entities/searchRepository"
 import { Request, Response} from "express"
 
 class SearchController {

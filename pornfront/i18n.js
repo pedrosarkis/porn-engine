@@ -38,7 +38,18 @@ i18n
             '60plusMinutes': '60+ minutes',
             '0to10minutes': '0-10 minutes',
             '0to20minutes': '0-20 minutes'
-          }
+          },
+          // New translations for LoginModal
+          logIn: 'Log In',
+          createAccount: 'Create Account',
+          email: 'Email',
+          username: 'Username',
+          password: 'Password',
+          agreeTerms: 'I agree to the Terms of Service and Privacy Policy',
+          orContinueWith: 'or continue with',
+          noAccount: "Don't have an account? ",
+          alreadyHaveAccount: 'Already have an account? ',
+          signUp: 'Sign up'
         }
       },
       pt: {
@@ -74,7 +85,18 @@ i18n
             '60plusMinutes': '60+ minutos',
             '0to10minutes': '0-10 minutos',
             '0to20minutes': '0-20 minutos'
-          }
+          },
+          // New translations for LoginModal
+          logIn: 'Entrar',
+          createAccount: 'Criar Conta',
+          email: 'Email',
+          username: 'Nome de usuário',
+          password: 'Senha',
+          agreeTerms: 'Eu concordo com os Termos de Serviço e Política de Privacidade',
+          orContinueWith: 'ou continue com',
+          noAccount: 'Não tem uma conta? ',
+          alreadyHaveAccount: 'Já tem uma conta? ',
+          signUp: 'Inscrever-se'
         }
       },
       es: {
@@ -110,7 +132,18 @@ i18n
             '60plusMinutes': '60+ minutos',
             '0to10minutes': '0-10 minutos',
             '0to20minutes': '0-20 minutos'
-          }
+          },
+          // New translations for LoginModal
+          logIn: 'Iniciar sesión',
+          createAccount: 'Crear Cuenta',
+          email: 'Correo electrónico',
+          username: 'Nombre de usuario',
+          password: 'Contraseña',
+          agreeTerms: 'Acepto los Términos de Servicio y la Política de Privacidad',
+          orContinueWith: 'o continuar con',
+          noAccount: '¿No tienes una cuenta? ',
+          alreadyHaveAccount: '¿Ya tienes una cuenta? ',
+          signUp: 'Regístrate'
         }
       }
     },

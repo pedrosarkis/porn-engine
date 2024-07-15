@@ -1,4 +1,4 @@
-import SearchService from '../service/searchService'
+import SearchService from './searchService'
 import Video from '../entities/Video'
 
 class AggregatedSearchService {

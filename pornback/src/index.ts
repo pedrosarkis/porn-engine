@@ -10,11 +10,15 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
+import './config/database'
+
 const server = http.createServer(app)
 
-import routes from './routes/index'
+import routes from './routes/search'
+import user from './routes/user'
 
 app.use(routes)
+app.use('/user', user)
 
 const PORT = process.env.PORT || 3000
 

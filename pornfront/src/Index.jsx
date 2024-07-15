@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Search, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Search, ChevronLeft, ChevronRight, X, Eye, EyeOff } from 'lucide-react';
 import { fetchVideos } from './service/videoApi';
 import getRandomPornActress from './consts/RANDOMPORNS';
 import LanguageSelector from './components/LanguageSelector';
@@ -8,6 +8,9 @@ import VideoCard from './components/VideoCard';
 import SkeletonVideoCard from './components/SkeletonVideoCard';
 import FilterComponent from './components/Filters';
 import moment from 'moment';
+import LoginModal from './components/Login';
+
+
 
 const VideoPlatform = () => {
   const { t, i18n } = useTranslation();
@@ -22,6 +25,7 @@ const VideoPlatform = () => {
     dateAdded: 'all',
     duration: 'all'
   });
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const videosPerPage = 20;
 
   useEffect(() => {
@@ -139,15 +143,21 @@ const VideoPlatform = () => {
             value={searchTerm}
             onChange={handleSearchValue}
             onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-            className="w-full px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-2 border border-gray-300 rounded-l-full focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <button
             onClick={handleSearch}
-            className="absolute right-2 top-1/2 transform -translate-y-1/2 p-1"
+            className="absolute right-0 top-0 bottom-0 px-4 bg-blue-500 text-white rounded-r-full hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
-            <Search className="text-gray-400" size={20} />
+            <Search className="text-white" size={20} />
           </button>
         </div>
+        <button
+          onClick={() => setIsLoginModalOpen(true)}
+          className="text-black mr-4"
+        >
+          Login
+        </button>
         <LanguageSelector onChangeLanguage={handleChangeLanguage} />
       </div>
 
@@ -194,6 +204,11 @@ const VideoPlatform = () => {
           </button>
         </div>
       )}
+
+      <LoginModal
+        isOpen={isLoginModalOpen}
+        onClose={() => setIsLoginModalOpen(false)}
+      />
     </div>
   );
 };

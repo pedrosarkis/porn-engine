@@ -1,4 +1,4 @@
-import ISearchRepository from "../entities/ISearchRepository"
+import ISearchRepository from "./ISearchRepository"
 
 class SearchRepository implements ISearchRepository {
     searchService: any
