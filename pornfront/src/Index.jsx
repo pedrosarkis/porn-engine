@@ -31,7 +31,7 @@ const VideoPlatform = () => {
         const data = await response.json();
         const country = data.country_code.toLowerCase();
         
-        if (['br', 'pt'].includes(country)) {
+        if (['br', 'pt', 'ao', 'mz', 'cv', 'gw', 'st', 'tl', 'gq'].includes(country)) {
           i18n.changeLanguage('pt');
         } else if (['es', 'mx', 'ar', 'co', 've', 'cl', 'pe', 'ec', 'gt', 'cu', 'bo', 'do', 'hn', 'py', 'sv', 'ni', 'cr', 'pa', 'uy'].includes(country)) {
           i18n.changeLanguage('es');
