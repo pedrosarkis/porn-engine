@@ -7,7 +7,7 @@ import cookieParser from 'cookie-parser'
 dotenv.config()
 
 const app = express()
-//allow cors in process.env.CORS_ORIGIN
+
 app.use(cors({ origin: process.env.CORS_ORIGIN, credentials: true }))
 app.use(express.json())
 app.use(cookieParser())
