@@ -34,32 +34,11 @@ const VideoPlatform = () => {
   const videosPerPage = 20;
 
   useEffect(() => {
-    const detectLanguage = async () => {
-      try {
-        const response = await fetch('https://ipapi.co/json/');
-        const data = await response.json();
-        const country = data.country_code.toLowerCase();
-        
-        if (['br', 'pt', 'ao', 'mz', 'cv', 'gw', 'st', 'tl', 'gq'].includes(country)) {
-          i18n.changeLanguage('pt');
-        } else if (['es', 'mx', 'ar', 'co', 've', 'cl', 'pe', 'ec', 'gt', 'cu', 'bo', 'do', 'hn', 'py', 'sv', 'ni', 'cr', 'pa', 'uy'].includes(country)) {
-          i18n.changeLanguage('es');
-        } else {
-          i18n.changeLanguage('en');
-        }
-      } catch (error) {
-        console.error('Error detecting language:', error);
-        i18n.changeLanguage('en');
-      }
-    };
-
-    // detectLanguage();
-  }, [i18n]);
-
-  useEffect(() => {
     const fetchInitialVideos = async () => {
       setLoading(true);
-      const initialTerm = getRandomPornActress();
+      const language = i18n.language.substring(0, 2) === 'pt' ? 'br' : 'worldwide';
+      
+      const initialTerm = getRandomPornActress(language);
       const data = await fetchVideos(initialTerm);
       setAllVideos(data);
       setFilteredVideos(data);
