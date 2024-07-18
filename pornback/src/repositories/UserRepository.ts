@@ -12,7 +12,7 @@ class UserRepository {
     return await this.userModel.create(user);
   }
 
-  public async login(email: string, password: string): Promise<User | null> {
+  public async login(email: string, password: string): Promise<any | null> {
     const user = await this.userModel.findOne({ email });
     if (!user) {
         return null;

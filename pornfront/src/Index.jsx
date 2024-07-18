@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Search, ChevronLeft, ChevronRight, X, Eye, EyeOff } from 'lucide-react';
+import { Search, ChevronLeft, ChevronRight, CircleUser } from 'lucide-react';
 import { fetchVideos } from './service/videoApi';
 import getRandomPornActress from './consts/RANDOMPORNS';
 import LanguageSelector from './components/LanguageSelector';
 import VideoCard from './components/VideoCard';
 import SkeletonVideoCard from './components/SkeletonVideoCard';
 import FilterComponent from './components/Filters';
-import moment from 'moment';
 import LoginModal from './components/Login';
+import { useAuth } from './contexts/Auth';
 
 
+import moment from 'moment';
 
 const VideoPlatform = () => {
   const { t, i18n } = useTranslation();
+  const { user } = useAuth();
   const [searchTerm, setSearchTerm] = useState('');
   const [lastSearchedTerm, setLastSearchedTerm] = useState('');
   const [allVideos, setAllVideos] = useState([]);
@@ -63,10 +65,6 @@ const VideoPlatform = () => {
     };
     fetchInitialVideos();
   }, []);
-
-  const handleSearchValue = (e) => {
-    setSearchTerm(e.target.value);
-  };
 
   const handleSearch = async () => {
     setLoading(true);
@@ -120,7 +118,6 @@ const VideoPlatform = () => {
   };
 
   const matchesDateAdded = (videoDate, filter) => {
-    // Implement the date filtering logic here
     return true;
   };
 
@@ -141,7 +138,7 @@ const VideoPlatform = () => {
             type="text"
             placeholder={t('searchPlaceholder')}
             value={searchTerm}
-            onChange={handleSearchValue}
+            onChange={(e) => setSearchTerm(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
             className="w-full px-4 py-2 border border-gray-300 rounded-l-full focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
@@ -152,12 +149,21 @@ const VideoPlatform = () => {
             <Search className="text-white" size={20} />
           </button>
         </div>
-        <button
-          onClick={() => setIsLoginModalOpen(true)}
-          className="text-black mr-4"
-        >
-          Login
-        </button>
+        
+        {user ? (
+          <button className="text-black mr-4">
+            <CircleUser size={20} />
+          </button>
+        ) : (
+          <button
+            onClick={() => setIsLoginModalOpen(true)}
+            className="text-black mr-4"
+          >
+            Login
+          </button>
+        )}
+          
+        
         <LanguageSelector onChangeLanguage={handleChangeLanguage} />
       </div>
 

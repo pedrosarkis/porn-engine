@@ -12,7 +12,7 @@ class XvideosService extends SearchService {
     formatDuration(duration: string): string {
         let finalDuration: string = ''
         if(duration.includes('min')) {
-             finalDuration = duration.split('min')[0].trim() + ':00'
+             finalDuration = (duration.split('min')[0].trim() + ':00').padStart(5, '0')
         } else {
              finalDuration = '00:' + duration.split('sec')[0].trim()
         }

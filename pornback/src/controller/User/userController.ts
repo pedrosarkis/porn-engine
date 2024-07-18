@@ -36,9 +36,12 @@ class UserController {
         try {
             const { email, password } = req.body;
             const user = await this.userRepository.login(email, password);
-            const token = jwt.sign({ id: user?.getEmail() }, process.env.SECRET_KEY as string, { expiresIn: '8h' });
+            if(!user){
+                return res.status(400).json({message: 'Invalid credentials'});
+            }
+            const token = jwt.sign({ id: user?.email }, process.env.SECRET_KEY as string, { expiresIn: '8h' });
             res.cookie('token', token, { httpOnly: true });
-            return res.status(200).json(user);
+            return res.status(200).json({message: 'User logged in successfully'});
         } catch (error: any) {
             return res.status(500).json({ error: error.message });
         }
