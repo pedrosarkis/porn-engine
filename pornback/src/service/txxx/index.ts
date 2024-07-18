@@ -23,7 +23,7 @@ class TxxxService extends SearchService{
             return new Video(title, url, tags, description, duration, thumbnail)
         })
         const t3 = performance.now()
-        console.log(`TxxxService.search took ${t3 - t0} milliseconds`)
+        // console.log(`TxxxService.search took ${t3 - t0} milliseconds`)
         return videolist
     }
 }

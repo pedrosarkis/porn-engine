@@ -10,7 +10,8 @@ export const AuthProvider = ({ children }) => {
   const login = async (email, password) => {
     const response = await apiLogin(email, password);
     if (response.status === 200) {
-      setUser({email, password});
+      const {user: userData} = (await response.json())
+      setUser(userData);
       return true;
     }
     return false;

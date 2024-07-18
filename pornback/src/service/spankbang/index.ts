@@ -27,7 +27,7 @@ class SpankBangService extends SearchService {
         }).get()
       
         const time2 = performance.now()
-        console.log(`SpankBangService.search took ${time2 - time1} milliseconds`)
+        // console.log(`SpankBangService.search took ${time2 - time1} milliseconds`)
         return videolist
     }
 }

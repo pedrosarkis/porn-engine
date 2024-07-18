@@ -38,8 +38,18 @@ const addFavoriteVideo = async ({title, url, thumbnail}) => {
     return data;
 }
 
+const getFavorites = async () => {
+    const response = await fetch(`${baseURL}/user/favorite`, {
+        method: 'GET',
+        credentials: 'include'
+    });
+    const data = await response.json();
+    return data;
+}
+
 export {
     login,
     register,
-    addFavoriteVideo
+    addFavoriteVideo,
+    getFavorites
 }

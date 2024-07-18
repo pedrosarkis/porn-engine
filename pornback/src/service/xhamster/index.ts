@@ -30,7 +30,7 @@ class XhamsterService extends SearchService {
 
         })
         const time2 = performance.now()
-        console.log(`XhamsterService.search took ${time2 - time} milliseconds`)
+        // console.log(`XhamsterService.search took ${time2 - time} milliseconds`)
         return videoList
 
     }

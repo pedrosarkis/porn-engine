@@ -32,6 +32,13 @@ class UserRepository {
     return user
 }
 
+  public async getFavoriteVideos(email: String): Promise<FavoriteVideoDTO> {
+    console.log(email, 'email');
+      const user = await this.userModel.findOne({email});
+      console.log(user.favoriteVideos, 'favoriteVideos');
+      return user.favoriteVideos;
+  }
+
   public async findById(id: string): Promise<User | undefined> {
     return this.userModel.findById(id);
 }

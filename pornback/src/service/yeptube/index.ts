@@ -29,7 +29,7 @@ class YepTubeService extends SearchService {
 
 	})
 	const time2 = performance.now()
-	console.log(`YeptubeService.search took ${time2 - time} milliseconds`)
+	// console.log(`YeptubeService.search took ${time2 - time} milliseconds`)
 	return videoList
 }
 }

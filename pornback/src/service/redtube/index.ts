@@ -36,7 +36,7 @@ class RedtubeService extends SearchService {
             videoList.push(video)
         })
         const time2 = performance.now()
-        console.log(`RedtubeService.search took ${time2 - time} milliseconds"`)
+        // console.log(`RedtubeService.search took ${time2 - time} milliseconds"`)
 
         return videoList
 

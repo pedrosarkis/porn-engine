@@ -30,7 +30,7 @@ class XnxxService extends SearchService{
             videoList.push(video)
         })
         const time2 = performance.now()
-        console.log(`XnxxService.search took ${time2 - time} milliseconds`)
+        // console.log(`XnxxService.search took ${time2 - time} milliseconds`)
 
         return videoList
 

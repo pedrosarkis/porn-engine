@@ -36,7 +36,7 @@ class EpornService extends SearchService{
         //     await this.search(query, page + 1, pagesNumber, videoList)
         // }
         const time2 = performance.now()
-        console.log(`EpornService.search took ${time2 - time} milliseconds`)
+        // console.log(`EpornService.search took ${time2 - time} milliseconds`)
         return videoList
     }
 }
