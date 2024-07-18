@@ -22,7 +22,6 @@ class PornzogService extends SearchService {
 
         //<ul class="thumbs-list thumbs-videos-list"> query this element 
         const videos = $(".thumbs-list.thumbs-videos-list").find("li");
-        console.log(videos.html())
         videos.each((index, element) => {
             const title: string =$(element).find(".thumb-video-link.test3 .thumb").attr("alt") || "";
             const url: string = this.baseURL + $(element).find(".thumb-video-link.test3").attr("href");
@@ -36,7 +35,6 @@ class PornzogService extends SearchService {
 
         const time2 = performance.now();
         console.log(`PornzogService.search took ${time2 - time1} milliseconds"`)
-        console.log(videoList)
         return videoList;
     }
 }
