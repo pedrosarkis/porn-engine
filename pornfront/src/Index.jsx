@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Search, ChevronLeft, ChevronRight, CircleUser } from 'lucide-react';
+import { Search, ChevronLeft, ChevronRight, CircleUser, LogOut, User } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { fetchVideos } from './service/videoApi';
 import getRandomPornActress from './consts/RANDOMPORNS';
 import LanguageSelector from './components/LanguageSelector';
@@ -9,13 +10,14 @@ import SkeletonVideoCard from './components/SkeletonVideoCard';
 import FilterComponent from './components/Filters';
 import LoginModal from './components/Login';
 import { useAuth } from './contexts/Auth';
-
+import { addFavoriteVideo } from './service/userAPI';
 
 import moment from 'moment';
 
 const VideoPlatform = () => {
   const { t, i18n } = useTranslation();
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [lastSearchedTerm, setLastSearchedTerm] = useState('');
   const [allVideos, setAllVideos] = useState([]);
@@ -28,6 +30,7 @@ const VideoPlatform = () => {
     duration: 'all'
   });
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [showProfileOptions, setShowProfileOptions] = useState(false);
   const videosPerPage = 20;
 
   useEffect(() => {
@@ -128,6 +131,30 @@ const VideoPlatform = () => {
     return videoDurationInSeconds >= minutesFilter;
   };
 
+  const onToggleFavorite = async (video, isFavorite) => {
+    if (isFavorite) {
+      const response = await addFavoriteVideo(video);
+      alert(response.message);
+    } else {
+      // Remove favorite
+      // implement logic later
+    }	
+  };
+
+  const handleProfileClick = () => {
+    setShowProfileOptions(!showProfileOptions);
+  };
+
+  const handleProfileNavigation = () => {
+    navigate('/profile');
+    setShowProfileOptions(false);
+  };
+
+  const handleLogout = () => {
+    logout();
+    setShowProfileOptions(false);
+  };
+
   return (
     <div className="container mx-auto px-4">
       <h1 className="text-3xl font-bold mb-6 text-center">{t('title')}</h1>
@@ -151,9 +178,29 @@ const VideoPlatform = () => {
         </div>
         
         {user ? (
-          <button className="text-black mr-4">
-            <CircleUser size={20} />
-          </button>
+          <div className="relative">
+            <button onClick={handleProfileClick} className="text-black mr-4">
+              <CircleUser size={20} />
+            </button>
+            {showProfileOptions && (
+              <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10">
+                <button
+                  onClick={handleProfileNavigation}
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
+                >
+                  <User className="inline-block mr-2" size={16} />
+                  Perfil
+                </button>
+                <button
+                  onClick={handleLogout}
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
+                >
+                  <LogOut className="inline-block mr-2" size={16} />
+                  Logout
+                </button>
+              </div>
+            )}
+          </div>
         ) : (
           <button
             onClick={() => setIsLoginModalOpen(true)}
@@ -162,7 +209,6 @@ const VideoPlatform = () => {
             Login
           </button>
         )}
-          
         
         <LanguageSelector onChangeLanguage={handleChangeLanguage} />
       </div>
@@ -186,7 +232,7 @@ const VideoPlatform = () => {
           ? Array.from({ length: videosPerPage }).map((_, index) => (
               <SkeletonVideoCard key={index} />
             ))
-          : currentVideos.map((video) => <VideoCard key={video.id} video={video} />)}
+          : currentVideos.map((video) => <VideoCard key={video.id} video={video} onToggleFavorite={onToggleFavorite} />)}
       </div>
 
       {!loading && (

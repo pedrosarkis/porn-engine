@@ -2,13 +2,16 @@ import express from 'express'
 import http from 'http'
 import dotenv from 'dotenv'
 import cors from 'cors'
+import cookieParser from 'cookie-parser'
 
 dotenv.config()
 
 const app = express()
-
-app.use(cors())
+//allow cors in process.env.CORS_ORIGIN
+app.use(cors({ origin: process.env.CORS_ORIGIN, credentials: true }))
 app.use(express.json())
+app.use(cookieParser())
+
 
 import './config/database'
 

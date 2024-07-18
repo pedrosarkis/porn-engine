@@ -24,8 +24,9 @@ class UserRepository {
     return user;
   }
 
-  public async addFavoriteVideo(userId: String, video: FavoriteVideoDTO): Promise<User> {
-    const user = await this.userModel.findById(userId);
+  public async addFavoriteVideo(email: String, video: FavoriteVideoDTO): Promise<User> {
+    console.log(video, 'video');
+    const user = await this.userModel.findOne({email});
     user.favoriteVideos.push(video);
     await user.save();
     return user

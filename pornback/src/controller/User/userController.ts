@@ -39,8 +39,8 @@ class UserController {
             if(!user){
                 return res.status(400).json({message: 'Invalid credentials'});
             }
-            const token = jwt.sign({ id: user?.email }, process.env.SECRET_KEY as string, { expiresIn: '8h' });
-            res.cookie('token', token, { httpOnly: true });
+            const token = jwt.sign({ email: user?.email }, process.env.SECRET_KEY as string, { expiresIn: '8h' });
+            res.cookie('authorization', token, { httpOnly: true });
             return res.status(200).json({message: 'User logged in successfully'});
         } catch (error: any) {
             return res.status(500).json({ error: error.message });
@@ -51,6 +51,7 @@ class UserController {
         try {
             const { title, url, thumbnail } = req.body;
             const favoriteVideo: FavoriteVideoDTO = { title, url, thumbnail };
+        console.log(req.email);
             const user = await this.userRepository.addFavoriteVideo(req.email as String, favoriteVideo);
             return res.status(200).json(user);
         } catch (error: any) {

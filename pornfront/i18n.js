@@ -9,6 +9,7 @@ i18n
         translation: {
           title: 'Porn Search Engine',
           searchPlaceholder: 'Search videos...',
+          favorites: 'Favorites',
           viewCount: '{{count}} view',
           viewCount_plural: '{{count}} views',
           pagination: 'Page {{current}} of {{total}}',
@@ -55,6 +56,7 @@ i18n
       pt: {
         translation: {
           title: 'Motor de Busca Pornô',
+          favorites: 'Favoritos',
           searchPlaceholder: 'Pesquisar vídeos...',
           viewCount: '{{count}} visualização',
           viewCount_plural: '{{count}} visualizações',

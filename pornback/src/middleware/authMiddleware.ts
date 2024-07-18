@@ -5,7 +5,7 @@ import UserRequest from '../types/UserRequest';
 
 
 const authMiddleware = (req: UserRequest, res: Response, next: NextFunction) => {
-    const token = req.headers.authorization?.split(' ')[1];
+    const token = req.cookies.authorization
 
     if (!token) {
         return res.status(401).json({ message: 'Unauthorized' });
@@ -13,7 +13,9 @@ const authMiddleware = (req: UserRequest, res: Response, next: NextFunction) => 
 
     try {
         const decodedToken = jwt.verify(token, process.env.SECRET_KEY as string) as JwtPayload;
+        
         req.email = decodedToken.email;
+       
         next();
     } catch (error) {
         return res.status(401).json({ message: 'Invalid token' });

@@ -6,6 +6,7 @@ const login = async (email, password) => {
         headers: {
             'Content-Type': 'application/json'
         },
+        credentials: 'include',
         body: JSON.stringify({ email, password })
     });
    
@@ -24,7 +25,21 @@ const register = async (username, password) => {
     return data;
 }
 
+const addFavoriteVideo = async ({title, url, thumbnail}) => {
+    const response = await fetch(`${baseURL}/user/favorite`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        credentials: 'include',
+        body: JSON.stringify({ title, url, thumbnail })
+    });
+    const data = await response.json();
+    return data;
+}
+
 export {
     login,
-    register
+    register,
+    addFavoriteVideo
 }

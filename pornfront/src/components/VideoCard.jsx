@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Clock, Star } from 'lucide-react';
-import { useAuth } from '../contexts/Auth'; // Assumindo que você tem um contexto de autenticação
+import { useAuth } from '../contexts/Auth'; 
 
 const VideoCard = ({ video, onToggleFavorite }) => {
   const { t } = useTranslation();
@@ -12,7 +12,7 @@ const VideoCard = ({ video, onToggleFavorite }) => {
     e.preventDefault();
     e.stopPropagation();
     setIsFavorite(!isFavorite);
-    onToggleFavorite(video.id, !isFavorite);
+    onToggleFavorite(video, !isFavorite);
   };
 
   return (
