@@ -44,7 +44,7 @@ class UserController {
             }
             const userDto = new UserLoginResponseDTO(user)
             const token = jwt.sign({ email: user?.email }, process.env.SECRET_KEY as string, { expiresIn: '8h' });
-            res.cookie('authorization', token, { httpOnly: true, sameSite: 'none'});
+            res.cookie('authorization', token, { httpOnly: true, sameSite: 'none', secure: true });
             return res.status(200).json({message: 'User logged in successfully', user: userDto});
         } catch (error: any) {
             console.trace();
