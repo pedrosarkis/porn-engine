@@ -28,7 +28,7 @@ const randomPornActressBr = [
     "Monica lima",
     "Shayenne samara",
     "Angel lima",
-    "Britney bich",
+    "Britney bitch",
     "Alessandra carvalho",
 ]
 
