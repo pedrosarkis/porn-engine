@@ -53,7 +53,7 @@ const VideoPlatform = () => {
       }
     };
 
-    detectLanguage();
+    // detectLanguage();
   }, [i18n]);
 
   useEffect(() => {

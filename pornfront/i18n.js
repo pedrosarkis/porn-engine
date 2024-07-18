@@ -1,8 +1,10 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
+import LanguageDetector from 'i18next-browser-languagedetector';
 
 i18n
   .use(initReactI18next)
+  .use(LanguageDetector)
   .init({
     resources: {
       en: {
@@ -40,17 +42,27 @@ i18n
             '0to10minutes': '0-10 minutes',
             '0to20minutes': '0-20 minutes'
           },
-          // New translations for LoginModal
+          // Existing login modal translations
           logIn: 'Log In',
           createAccount: 'Create Account',
           email: 'Email',
           username: 'Username',
           password: 'Password',
-          agreeTerms: 'I agree to the Terms of Service and Privacy Policy',
+          agreeToTerms: 'I agree to the Terms of Service and Privacy Policy',
           orContinueWith: 'or continue with',
           noAccount: "Don't have an account? ",
           alreadyHaveAccount: 'Already have an account? ',
-          signUp: 'Sign up'
+          signUp: 'Sign up',
+          // New login modal translations
+          pleaseAgreeToTerms: 'Please agree to the Terms of Service and Privacy Policy',
+          invalidCredentials: 'Invalid email or password',
+          registrationFailed: 'Registration failed. Please try again.',
+          googleLoginFailed: 'Google login failed. Please try again.',
+          loginWithGoogle: 'Log in with Google',
+          signUpWithGoogle: 'Sign up with Google',
+          termsOfService: 'Terms of Service',
+          and: 'and',
+          privacyPolicy: 'Privacy Policy'
         }
       },
       pt: {
@@ -88,17 +100,27 @@ i18n
             '0to10minutes': '0-10 minutos',
             '0to20minutes': '0-20 minutos'
           },
-          // New translations for LoginModal
+          // Existing login modal translations
           logIn: 'Entrar',
           createAccount: 'Criar Conta',
           email: 'Email',
           username: 'Nome de usuário',
           password: 'Senha',
-          agreeTerms: 'Eu concordo com os Termos de Serviço e Política de Privacidade',
+          agreeToTerms: 'Eu concordo com os Termos de Serviço e Política de Privacidade',
           orContinueWith: 'ou continue com',
           noAccount: 'Não tem uma conta? ',
           alreadyHaveAccount: 'Já tem uma conta? ',
-          signUp: 'Inscrever-se'
+          signUp: 'Inscrever-se',
+          // New login modal translations
+          pleaseAgreeToTerms: 'Por favor, concorde com os Termos de Serviço e Política de Privacidade',
+          invalidCredentials: 'Email ou senha inválidos',
+          registrationFailed: 'Falha no registro. Por favor, tente novamente.',
+          googleLoginFailed: 'Falha no login do Google. Por favor, tente novamente.',
+          loginWithGoogle: 'Entrar com o Google',
+          signUpWithGoogle: 'Inscrever-se com o Google',
+          termsOfService: 'Termos de Serviço',
+          and: 'e',
+          privacyPolicy: 'Política de Privacidade'
         }
       },
       es: {
@@ -135,21 +157,35 @@ i18n
             '0to10minutes': '0-10 minutos',
             '0to20minutes': '0-20 minutos'
           },
-          // New translations for LoginModal
+          // Existing login modal translations
           logIn: 'Iniciar sesión',
           createAccount: 'Crear Cuenta',
           email: 'Correo electrónico',
           username: 'Nombre de usuario',
           password: 'Contraseña',
-          agreeTerms: 'Acepto los Términos de Servicio y la Política de Privacidad',
+          agreeToTerms: 'Acepto los Términos de Servicio y la Política de Privacidad',
           orContinueWith: 'o continuar con',
           noAccount: '¿No tienes una cuenta? ',
           alreadyHaveAccount: '¿Ya tienes una cuenta? ',
-          signUp: 'Regístrate'
+          signUp: 'Regístrate',
+          // New login modal translations
+          pleaseAgreeToTerms: 'Por favor, acepta los Términos de Servicio y la Política de Privacidad',
+          invalidCredentials: 'Correo electrónico o contraseña inválidos',
+          registrationFailed: 'Fallo en el registro. Por favor, inténtalo de nuevo.',
+          googleLoginFailed: 'Fallo en el inicio de sesión con Google. Por favor, inténtalo de nuevo.',
+          loginWithGoogle: 'Iniciar sesión con Google',
+          signUpWithGoogle: 'Registrarse con Google',
+          termsOfService: 'Términos de Servicio',
+          and: 'y',
+          privacyPolicy: 'Política de Privacidad'
         }
       }
     },
     fallbackLng: 'en',
+    detection: {
+      order: ['querystring', 'cookie', 'localStorage', 'sessionStorage', 'navigator', 'htmlTag', 'path', 'subdomain'],
+      caches: ['localStorage']
+    },
     interpolation: {
       escapeValue: false
     }

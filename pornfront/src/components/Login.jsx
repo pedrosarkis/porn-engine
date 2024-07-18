@@ -1,12 +1,10 @@
-// src/components/LoginModal.js
 import React, { useState } from 'react';
 import { Eye, EyeOff, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-
 import { useAuth } from '../contexts/Auth';
 
 const LoginModal = ({ isOpen, onClose }) => {
-  const { login, register } = useAuth();
+  const { login, register, loginWithGoogle } = useAuth();
   const { t } = useTranslation();
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
@@ -14,10 +12,15 @@ const LoginModal = ({ isOpen, onClose }) => {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
+  const [agreeToTerms, setAgreeToTerms] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    if (!isLogin && !agreeToTerms) {
+      setError(t('pleaseAgreeToTerms'));
+      return;
+    }
     let success;
     if (isLogin) {
       success = await login(email, password);
@@ -27,7 +30,16 @@ const LoginModal = ({ isOpen, onClose }) => {
     if (success) {
       onClose();
     } else {
-      setError(isLogin ? 'Invalid credentials' : 'Registration failed');
+      setError(isLogin ? t('invalidCredentials') : t('registrationFailed'));
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    const success = await loginWithGoogle();
+    if (success) {
+      onClose();
+    } else {
+      setError(t('googleLoginFailed'));
     }
   };
 
@@ -79,6 +91,20 @@ const LoginModal = ({ isOpen, onClose }) => {
               {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
             </button>
           </div>
+          {!isLogin && (
+            <div className="flex items-center">
+              <input
+                type="checkbox"
+                id="agreeToTerms"
+                checked={agreeToTerms}
+                onChange={(e) => setAgreeToTerms(e.target.checked)}
+                className="mr-2"
+              />
+              <label htmlFor="agreeToTerms" className="text-sm">
+                {t('agreeToTerms')} <a href="/terms" className="text-blue-500 hover:underline">{t('termsOfService')}</a> {t('and')} <a href="/privacy" className="text-blue-500 hover:underline">{t('privacyPolicy')}</a>
+              </label>
+            </div>
+          )}
           <button
             type="submit"
             className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
@@ -86,6 +112,15 @@ const LoginModal = ({ isOpen, onClose }) => {
             {isLogin ? t('logIn') : t('createAccount')}
           </button>
         </form>
+        <div className="mt-4">
+          <button
+            onClick={handleGoogleLogin}
+            className="w-full bg-white border border-gray-300 text-gray-700 p-2 rounded hover:bg-gray-50 flex items-center justify-center"
+          >
+            <img src="https://static-cdn77.xvideos-cdn.com/v3/img/skins/common/social/logo/google.svg" alt="Google" className="w-5 h-5 mr-2" />
+            {isLogin ? t('loginWithGoogle') : t('signUpWithGoogle')}
+          </button>
+        </div>
         <p className="mt-4 text-center text-sm">
           {isLogin ? t('noAccount') : t('alreadyHaveAccount')}
           <button onClick={() => setIsLogin(!isLogin)} className="text-blue-500 hover:underline ml-1">

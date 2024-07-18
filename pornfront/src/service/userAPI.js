@@ -28,7 +28,7 @@ const register = async (username, password) => {
 const addFavoriteVideo = async ({title, url, thumbnail}) => {
     const response = await fetch(`${baseURL}/user/favorite`, {
         method: 'POST',
-        headers: {
+    headers: {
             'Content-Type': 'application/json'
         },
         credentials: 'include',
