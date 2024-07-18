@@ -14,8 +14,6 @@ class EpornService extends SearchService{
         const pageString = page > 1 ? page : ''
         const data = await this.fetchToText(`${this.baseURL}/search/${queryFormatted}`)
         const $ = cheerio.load(data)
-        fs.writeFileSync('eporn.html', data)
-       
         
         const videos = $('#vidresults .mb')
         const pagesNumber = pages > 1 ? pages : $('.numlist2 a').length - 1 // -1 because the last element is the next page button, but i need to review this, cuz it seems not quite right

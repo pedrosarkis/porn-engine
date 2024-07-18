@@ -17,7 +17,6 @@ class RedtubeService extends SearchService {
         const url: string = `${this.baseURL}/?search=${queryFormatted}`
      
         const data: string = await this.fetchToText(url)
-        fs.writeFileSync('redtube.html', data)
 
         const $ = cheerio.load(data)
         

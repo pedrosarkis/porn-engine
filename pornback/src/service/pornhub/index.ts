@@ -42,7 +42,6 @@ class PornhubService extends SearchService {
         const data = await (await fetch(url)).text()
         const $ = cheerio.load(data)
         const videos = $('div[data-action="search"]')
-        fs.writeFileSync('pornhub.html', data)
         videos.each((index, element) => {
             const title = this.normalizeData($(element).find('.title').text())
             const url = this.baseURL + $(element).find('.title a').attr('href')
