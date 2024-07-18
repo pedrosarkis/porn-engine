@@ -11,7 +11,7 @@
 | [xhamster](https://xhamster.com/)|  X    |
 | [xnxx](https://xnxx.com/)       |   X    |
 | [yeptube](https://yeptube.com/) |   X    |
-[ [pornzog](https://pornzog.com/) |   X    |
+| [pornzog](https://pornzog.com/) |   X    |
 
 Running example on : https://porn-engine.onrender.com/
 
