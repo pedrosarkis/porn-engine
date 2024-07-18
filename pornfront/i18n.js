@@ -42,7 +42,6 @@ i18n
             '0to10minutes': '0-10 minutes',
             '0to20minutes': '0-20 minutes'
           },
-          // Existing login modal translations
           logIn: 'Log In',
           createAccount: 'Create Account',
           email: 'Email',
@@ -100,7 +99,6 @@ i18n
             '0to10minutes': '0-10 minutos',
             '0to20minutes': '0-20 minutos'
           },
-          // Existing login modal translations
           logIn: 'Entrar',
           createAccount: 'Criar Conta',
           email: 'Email',
@@ -111,7 +109,6 @@ i18n
           noAccount: 'Não tem uma conta? ',
           alreadyHaveAccount: 'Já tem uma conta? ',
           signUp: 'Inscrever-se',
-          // New login modal translations
           pleaseAgreeToTerms: 'Por favor, concorde com os Termos de Serviço e Política de Privacidade',
           invalidCredentials: 'Email ou senha inválidos',
           registrationFailed: 'Falha no registro. Por favor, tente novamente.',
@@ -157,7 +154,6 @@ i18n
             '0to10minutes': '0-10 minutos',
             '0to20minutes': '0-20 minutos'
           },
-          // Existing login modal translations
           logIn: 'Iniciar sesión',
           createAccount: 'Crear Cuenta',
           email: 'Correo electrónico',
@@ -168,7 +164,6 @@ i18n
           noAccount: '¿No tienes una cuenta? ',
           alreadyHaveAccount: '¿Ya tienes una cuenta? ',
           signUp: 'Regístrate',
-          // New login modal translations
           pleaseAgreeToTerms: 'Por favor, acepta los Términos de Servicio y la Política de Privacidad',
           invalidCredentials: 'Correo electrónico o contraseña inválidos',
           registrationFailed: 'Fallo en el registro. Por favor, inténtalo de nuevo.',

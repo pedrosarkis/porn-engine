@@ -77,10 +77,6 @@
                 <div className="flex-grow">
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <p className="text-sm text-gray-600">Idade:</p>
-                      <p>{userMock.age}</p>
-                    </div>
-                    <div>
                       <p className="text-sm text-gray-600">Acessos ao perfil:</p>
                       <p>{userMock.profileViews}</p>
                     </div>

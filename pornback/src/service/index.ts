@@ -7,6 +7,7 @@ import XhamsterService from './xhamster/index'
 import TxxxService from './txxx/index'
 import SpankBang from './spankbang/index'
 import RedtubeService from './redtube'
+import PornzogService from './pornzog'
 
 const epornService = new EpornService()
 const xvideosService = new XvideosService()
@@ -16,6 +17,7 @@ const xhamsterService = new XhamsterService()
 const txxxService = new TxxxService()
 const spankBangService = new SpankBang()
 const redtubeService = new RedtubeService()
+const pornzogService = new PornzogService()
 
 
 const aggregatedSearchService = new AggregatedSearchService(
@@ -28,6 +30,8 @@ const aggregatedSearchService = new AggregatedSearchService(
         txxxService,
         spankBangService,
         redtubeService,
+        pornzogService
+
     ]
 )
 

@@ -1,6 +1,7 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import { login as apiLogin, register as apiRegister } from '../service/userAPI';
 import db from '../config/db';
+import jscookie from 'js-cookie';
 
 const AuthContext = createContext(null);
 
