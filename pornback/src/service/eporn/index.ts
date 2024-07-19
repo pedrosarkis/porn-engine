@@ -4,19 +4,24 @@ import SearchService from '../searchService'
 import fs from 'fs'
 import { Performance } from 'perf_hooks'
 class EpornService extends SearchService{
-   
-    constructor() {
+
+   private sortOptions = {
+        viewed: 'most-viewed',
+        rating: 'top-rated',
+   }
+    constructor(private sort: string = '') {
         super('https://www.eporner.com')
     }
-    async search(query: string, page: number = 1, pages: number = 1, videoList: Video[] = []) {
+    async search(query: string, sort: string) {
+        const videoList: Video[] = []
         const time = performance.now()
         const queryFormatted = query.split(' ').join('-')
-        const pageString = page > 1 ? page : ''
+        
         const data = await this.fetchToText(`${this.baseURL}/search/${queryFormatted}`)
         const $ = cheerio.load(data)
         
         const videos = $('#vidresults .mb')
-        const pagesNumber = pages > 1 ? pages : $('.numlist2 a').length - 1 // -1 because the last element is the next page button, but i need to review this, cuz it seems not quite right
+      // -1 because the last element is the next page button, but i need to review this, cuz it seems not quite right
         
         videos.each((index, element) => {
             const title = $(element).find('.mbtit a').text()

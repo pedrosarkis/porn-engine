@@ -5,6 +5,13 @@ import fs from 'fs'
 import { Performance } from 'perf_hooks'
 
 class XvideosService extends SearchService {
+    private SORT_CONST = 'sort'
+    private sortOptions: { [key: string]: string } = {
+        rating: `${this.SORT_CONST}=rating`,
+        uploaddate: `${this.SORT_CONST}=uploaddate`,
+        views: `${this.SORT_CONST}=views`,
+    }
+
     constructor() {
         super('https://www.xvideos.com')
     }
@@ -20,12 +27,15 @@ class XvideosService extends SearchService {
         return finalDuration 
     }
     
-    async search(query: string, page: number = 0) {
+    async search(query: string, sort: string) {
         const time1 = performance.now()
         const videoList: Video[] = []
         
         const queryFormatted: string = query.split('-').join('+')
-        const url: string = `${this.baseURL}/?k=${queryFormatted}&p=${page}`
+        let url: string = `${this.baseURL}/?k=${queryFormatted}`
+        if (sort) {
+            url += `&${this.sortOptions[sort]}`
+        }
      
         const data: string = await this.fetchToText(url)
         const $ = cheerio.load(data)

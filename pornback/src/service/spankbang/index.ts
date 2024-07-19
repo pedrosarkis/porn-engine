@@ -5,15 +5,24 @@ import fs from 'fs'
 import { Performance } from 'perf_hooks'
 
 class SpankBangService extends SearchService {
-    constructor() {
+    private SORT_CONST = 'o'
+    private sortOptions:{ [key: string]: string } = {
+        recent: `${this.SORT_CONST}=new`,
+        views: `${this.SORT_CONST}=popular`,
+        rating: `${this.SORT_CONST}=trending`,
+    }
+    constructor(private sort: string = '') {
         super('https://spankbang.com')
     }
 
-    async search(query: string) {
+    async search(query: string, sort: string) {
         const time1 = performance.now()
         const queryFormatted = query.split('-').join('%20')
-      
-        const html = await this.fetchToText(`${this.baseURL}/s/${queryFormatted}/`)
+        let url = `${this.baseURL}/s/${queryFormatted}/`
+        if(sort) {
+            url += `?${this.sortOptions[sort]}`
+        }
+        const html = await this.fetchToText(url)
 
         const $ = cheerio.load(html)
         const videolist = $('.video-item').map((i, el) => {

@@ -10,7 +10,7 @@ class AggregatedSearchService {
         this.timeout = timeout
     }
 
-    private async searchWithTimeout(service: SearchService, query: string): Promise<Video[]> {
+    private async searchWithTimeout(service: SearchService, query: string, sort: string): Promise<Video[]> {
         return new Promise(async (resolve) => {
             const timeoutId = setTimeout(() => {
                 console.log(`Timeout reached for service: ${service.constructor.name}`)
@@ -18,7 +18,7 @@ class AggregatedSearchService {
             }, this.timeout)
 
             try {
-                const results = await service.search(query)
+                const results = await service.search(query, sort)
                 clearTimeout(timeoutId)
                 resolve(results)
             } catch (error) {
@@ -29,8 +29,8 @@ class AggregatedSearchService {
         })
     }
 
-    async search(query: string): Promise<Video[]> {
-        const searchPromises = this.services.map(service => this.searchWithTimeout(service, query))
+    async search(query: string, sort: string = ''): Promise<Video[]> {
+        const searchPromises = this.services.map(service => this.searchWithTimeout(service, query, sort))
         const results = await Promise.allSettled(searchPromises)
         
         const allVideos = results.reduce((acc: Video[], result) => {

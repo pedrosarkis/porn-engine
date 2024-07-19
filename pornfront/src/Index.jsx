@@ -70,18 +70,19 @@ const VideoPlatform = () => {
     i18n.changeLanguage(langCode);
   };
 
-  const handleSortChange = (newSortBy) => {
+  const handleSortChange = async (newSortBy) => {
+    const sortDictionary = {
+      popularity: 'views',
+      rating: 'rating'
+    }
     setSortBy(newSortBy);
-    const sortedVideos = [...filteredVideos].sort((a, b) => {
-      if (newSortBy === 'date') {
-        return new Date(b.date) - new Date(a.date);
-      } else if (newSortBy === 'duration') {
-        return moment.duration(b.duration).asSeconds() - moment.duration(a.duration).asSeconds();
-      } else if (newSortBy === 'rating') {
-        return b.rating - a.rating;
-      }
-      return b.views - a.views;
-    });
+    const sortedVideos = sortDictionary[newSortBy] ?
+		await fetchVideos(searchTerm, sortDictionary[newSortBy]) : 
+			[...filteredVideos].sort((a, b) => {
+				if (newSortBy === 'duration') {
+					return moment.duration(b.duration).asSeconds() - moment.duration(a.duration).asSeconds();
+				}
+    	});
     setFilteredVideos(sortedVideos);
   };
 

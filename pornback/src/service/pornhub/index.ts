@@ -3,42 +3,29 @@ import Video from '../../entities/Video'
 import SearchService from '../searchService'
 import fs from 'fs'
 import { Performance } from 'perf_hooks'
+import IVideoFilter from '../../entities/ISearchFilter'
 class PornhubService extends SearchService {
+    private SORT_CONST = 'o'
+    //recent: `${this.SORT_CONST}=mr`,
+    private sortOptions: { [key: string]: string } = {
+        views: `${this.SORT_CONST}=mv`,
+        rating: `${this.SORT_CONST}=tr`,
+
+    }
+
     constructor() {
         super('https://www.pornhub.com')
     }
 
-    async search(query: string, page: number = 0) {
+    async search(query: string, sort: string) {
         const time = performance.now()
         const videoList: Video[] = []
         const queryFormatted = query.split(' ').join('+')
         let url = `${this.baseURL}/video/search?search=${queryFormatted}`
-        if (page > 0) {
-            url += `&page=${page}`
+        if (sort) {
+            url += `&${this.sortOptions[sort]}`
         }
-
-        // results inside of ul <ul class="videoList" id="videoListSearchResults">
-        // al videos are inside div with attribute data-action="search"
-        // <div data-action="search"  class="positionRelative videoWrapper " data-token="MTcxNzc2MjcxOB9yAh1nveq6HkRd2iprk9CLvaEeasFv-Rbgg95lxdLzBBDUEG1B3cmC6hxQFGWx88XEPLZeVsqR6s9jsfxKTdI." data-video-id="video395831851" data-pid="" data-id="395831851">
-        //                         <div class="positionRelative singleVideo">
-        //         <a  class=" js-pop gradientBottom js-popUnder imageLink js-flipbookOn js-videoPreview webm-videoPreview"
-        //                                    href="/view_video.php?viewkey=ph615b7099eaa4d"
-        //              data-webm="https://ew.phncdn.com/videos/202110/04/395831851/360P_360K_395831851_fb.mp4?validfrom=1717758852&validto=1717766052&rate=150k&burst=1000k&ipa=90.131.37.90&hash=Xz6LYcfxWltHVnRnZjINPEeIHzE%3D" data-poster="https://ei.phncdn.com/videos/202110/04/395831851/original/(m=eGNdHgaaaa)(mh=IF8wkzvpcxXOwL3X)8.jpg" onclick="setEntryCookie('VidPg-premVid')"  >
-
-        //                                     <div class="webm-preloadLine js-preloadLineWebm"></div>
-        //                                                                             <img class="videoThumb js-videoThumb js-videoThumbWebm"
-        //                      src="https://ei.phncdn.com/videos/202110/04/395831851/original/(m=eGNdHgaaaa)(mh=IF8wkzvpcxXOwL3X)8.jpg"
-        //                      loading="lazy"
-        //                      alt="Banho gostoso com a Elisa Sanches"
-        //                      data-path="https://ei.phncdn.com/videos/202110/04/395831851/original/(m=eGNdHgaaaa)(mh=IF8wkzvpcxXOwL3X)8.jpg"
-        //                      data-thumbs="16">
-                    
-        //                                                                                                                     <div class="videopv"></div>
-        //         </a>
-
-                                
-        //                             <div class="duration thumbOverlay hideInUserStream">
-        //                                                                                                                 <span class="time">6:35</span>
+     
         const data = await (await fetch(url)).text()
         const $ = cheerio.load(data)
         const videos = $('div[data-action="search"]')

@@ -5,8 +5,8 @@ class SearchRepository implements ISearchRepository {
     constructor(searchService: any) {
        this.searchService = searchService
     }
-    search(query: string): Promise<any[]> {
-        return Promise.resolve(this.searchService.search(query))
+    search(query: string, sort: string = ''): Promise<any[]> {
+        return Promise.resolve(this.searchService.search(query, sort))
     }
 }
 

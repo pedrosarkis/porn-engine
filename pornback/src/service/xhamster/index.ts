@@ -4,15 +4,23 @@ import Video from '../../entities/Video'
 import fs from 'fs'
 import { Performance } from 'perf_hooks'
 class XhamsterService extends SearchService {
+    private sortOptions: { [key: string]: string } = {
+        recent: 'newest',
+        views: 'views',
+        rating: 'best'
+    }
     constructor() {
         super('https://xhamster.com')
     }
 
-    async search(query: string) {
+    async search(query: string, sort: string) {
         const time = performance.now()
         const videoList: Video[] = []
         const queryFormatted = query.split('-').join('+')
-        const url = `${this.baseURL}/search/${queryFormatted}`
+        let url = `${this.baseURL}/search/${queryFormatted}`
+        if(sort) {
+            url += `/${this.sortOptions[sort]}`
+        }
         const data = await (await fetch(url)).text()
         const $ = cheerio.load(data)
         

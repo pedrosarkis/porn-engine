@@ -9,7 +9,7 @@ class RedtubeService extends SearchService {
         super('https://www.redtube.com')
     }
     
-    async search(query: string, page: number = 0) {
+    async search(query: string, sort: string) {
         const time = performance.now()
         const videoList: Video[] = []
         

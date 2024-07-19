@@ -15,7 +15,7 @@ abstract class SearchService {
         return data.trim().replace(/\s+/g, ' ')
     }
 
-    abstract search(query: string): Promise<Video[]>
+    abstract search(query: string, sort: string): Promise<Video[]>
 }
 
 export default SearchService

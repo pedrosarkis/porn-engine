@@ -35,7 +35,7 @@ const FilterComponent = ({ sortBy, filterBy, onSortChange, onFilterChange }) => 
           className="border rounded px-2 py-1"
         >
           <option value="popularity">{t('popularity')}</option>
-          <option value="date">{t('date')}</option>
+          {/* <option value="date">{t('date')}</option> */}
           <option value="duration">{t('duration')}</option>
           <option value="rating">{t('rating')}</option>
         </select>
