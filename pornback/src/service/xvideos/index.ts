@@ -53,7 +53,7 @@ class XvideosService extends SearchService {
         })
 
         const time2 = performance.now()
-        // console.log(`XvideosService.search took ${time2 - time1} milliseconds"`)
+        console.log(`XvideosService.search took ${time2 - time1} milliseconds"`)
         return videoList
 
     }

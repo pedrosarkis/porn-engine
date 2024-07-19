@@ -25,17 +25,18 @@ const FilterComponent = ({ sortBy, filterBy, onSortChange, onFilterChange }) => 
     '0to20minutes'
   ];
 
+  const selectClasses = "border rounded px-2 py-1 bg-white dark:bg-gray-700 text-gray-900 dark:text-white border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400";
+
   return (
-    <div className="flex flex-wrap gap-4">
+    <div className="flex flex-wrap gap-4 text-gray-900 dark:text-white">
       <div className="flex items-center">
         <span className="font-medium mr-2">{t('sortBy')}:</span>
         <select
           value={sortBy}
           onChange={(e) => onSortChange(e.target.value)}
-          className="border rounded px-2 py-1"
+          className={selectClasses}
         >
           <option value="popularity">{t('popularity')}</option>
-          {/* <option value="date">{t('date')}</option> */}
           <option value="duration">{t('duration')}</option>
           <option value="rating">{t('rating')}</option>
         </select>
@@ -45,7 +46,7 @@ const FilterComponent = ({ sortBy, filterBy, onSortChange, onFilterChange }) => 
         <select
           value={filterBy.dateAdded}
           onChange={(e) => onFilterChange('dateAdded', e.target.value)}
-          className="border rounded px-2 py-1"
+          className={selectClasses}
         >
           {dateAddedOptions.map(option => (
             <option key={option} value={option}>{t(`dateAdded.${option}`)}</option>
@@ -54,7 +55,7 @@ const FilterComponent = ({ sortBy, filterBy, onSortChange, onFilterChange }) => 
         <select
           value={filterBy.duration}
           onChange={(e) => onFilterChange('duration', e.target.value)}
-          className="border rounded px-2 py-1"
+          className={selectClasses}
         >
           {durationOptions.map(option => (
             <option key={option} value={option}>{t(`durationFilter.${option}`)}</option>
