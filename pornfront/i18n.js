@@ -52,7 +52,6 @@ i18n
           noAccount: "Don't have an account? ",
           alreadyHaveAccount: 'Already have an account? ',
           signUp: 'Sign up',
-          // New login modal translations
           pleaseAgreeToTerms: 'Please agree to the Terms of Service and Privacy Policy',
           invalidCredentials: 'Invalid email or password',
           registrationFailed: 'Registration failed. Please try again.',
@@ -173,6 +172,62 @@ i18n
           termsOfService: 'Términos de Servicio',
           and: 'y',
           privacyPolicy: 'Política de Privacidad'
+        }
+      },
+      zh: {
+        translation: {
+          title: '成人搜索引擎',
+          searchPlaceholder: '搜索视频...',
+          favorites: '收藏',
+          viewCount: '{{count}} 次观看',
+          viewCount_plural: '{{count}} 次观看',
+          pagination: '第 {{current}} 页，共 {{total}} 页',
+          results: '结果',
+          sortBy: '排序方式',
+          filterBy: '筛选方式',
+          popularity: '热门程度',
+          date: '日期',
+          duration: '时长',
+          rating: '评分',
+          dateAdded: {
+            all: '全部',
+            past24hours: '过去24小时',
+            past2days: '过去2天',
+            pastWeek: '过去一周',
+            pastMonth: '过去一个月',
+            past3months: '过去3个月',
+            pastYear: '过去一年'
+          },
+          durationFilter: {
+            all: '全部',
+            '1plusMinutes': '1分钟以上',
+            '5plusMinutes': '5分钟以上',
+            '10plusMinutes': '10分钟以上',
+            '20plusMinutes': '20分钟以上',
+            '30plusMinutes': '30分钟以上',
+            '60plusMinutes': '60分钟以上',
+            '0to10minutes': '0-10分钟',
+            '0to20minutes': '0-20分钟'
+          },
+          logIn: '登录',
+          createAccount: '创建账户',
+          email: '电子邮箱',
+          username: '用户名',
+          password: '密码',
+          agreeToTerms: '我同意服务条款和隐私政策',
+          orContinueWith: '或继续使用',
+          noAccount: "还没有账户？",
+          alreadyHaveAccount: '已经有账户？',
+          signUp: '注册',
+          pleaseAgreeToTerms: '请同意服务条款和隐私政策',
+          invalidCredentials: '邮箱或密码无效',
+          registrationFailed: '注册失败。请重试。',
+          googleLoginFailed: 'Google登录失败。请重试。',
+          loginWithGoogle: '使用Google登录',
+          signUpWithGoogle: '使用Google注册',
+          termsOfService: '服务条款',
+          and: '和',
+          privacyPolicy: '隐私政策'
         }
       }
     },

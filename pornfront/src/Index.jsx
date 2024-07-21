@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Search, ChevronLeft, ChevronRight, CircleUser, LogOut, User } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { fetchVideos } from './service/videoApi';
-import getRandomPornActress from './consts/RANDOMPORNS';
+import getRandomActress from './consts/RANDOMACTRESS';
 import LanguageSelector from './components/LanguageSelector';
 import VideoCard from './components/VideoCard';
 import SkeletonVideoCard from './components/SkeletonVideoCard';
@@ -40,7 +40,7 @@ const VideoPlatform = () => {
       setLoading(true);
       const language = i18n.language.substring(0, 2) === 'pt' ? 'br' : 'worldwide';
       
-      const initialTerm = getRandomPornActress(language);
+      const initialTerm = getRandomActress(language);
       const data = await fetchVideos(initialTerm);
       setAllVideos(data);
       setFilteredVideos(data);
