@@ -33,7 +33,7 @@ const VideoPlatform = () => {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [showProfileOptions, setShowProfileOptions] = useState(false);
   const [theme, setTheme] = useState('light');
-  const videosPerPage = 20;
+  const videosPerPage = 30;
 
   useEffect(() => {
     const fetchInitialVideos = async () => {
